@@ -16,7 +16,7 @@
 
 ---
 
-Built with Expo (React Native); runs on iOS and Android. News is collected from ~50 sources by a separate service, [news-crawler](https://github.com/canrollas/news-crawler), and written to a Supabase (Postgres) database — this app just reads and displays that data through an API.
+Built with Expo (React Native); runs on iOS and Android. News is collected from ~50 sources by a separate service, [news-crawler](https://github.com/canrollas/news-crawler) (You need authorized access to run this service contact me), and written to a Supabase (Postgres) database — this app just reads and displays that data through an API.
 
 ## Table of contents
 
@@ -33,7 +33,7 @@ Built with Expo (React Native); runs on iOS and Android. News is collected from 
 
 | | |
 |---|---|
-| 🔵 **Personalize feed** | Home feed based on the sources and categories you follow. |
+| 🔵 **Personalize** | Home feed based on the sources and categories you follow. |
 | 🔵 **Discover** | Browse news by category. |
 | 🔵 **Sources** | Source list with per-source news feeds. |
 | 🔵 **Breaking** | Push notifications via Firebase Cloud Messaging; stories covered by 2+ sources at the same time (i.e. genuinely trending) are sent through the `breaking_alerts` topic. |
@@ -136,7 +136,7 @@ Signing relies on `release.jks` + `release.keystore.properties` files at the pro
 
 ## Related repo
 
-News collection, enrichment (category/tag/summary via LLM), and notification triggering logic: [news-crawler](https://github.com/canrollas/news-crawler)
+News collection, enrichment (category/tag/summary via LLM), and notification triggering logic: [news-crawler](https://github.com/canrollas/news-crawler) (You need authorized access to run this service contact me). 
 
 ---
 
