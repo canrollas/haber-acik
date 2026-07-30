@@ -31,14 +31,12 @@ Built with Expo (React Native); runs on iOS and Android. News is collected from 
 
 ## Features
 
-| | |
-|---|---|
-| 🔵 **Personal** | Home feed based on the sources and categories you follow. |
-| 🔵 **Discover** | Browse news by category. |
-| 🔵 **Sources** | Source list with per-source news feeds. |
-| 🔵 **Breaking** | Push notifications via Firebase Cloud Messaging; stories covered by 2+ sources at the same time (i.e. genuinely trending) are sent through the `breaking_alerts` topic. |
-| 🔵 **Custom** | Visual preferences are stored on-device. |
-| 🔵 **Privacy** | No personal data is collected or stored on the device — preferences are kept locally only. |
+- 🔵 **Personal** — Home feed based on the sources and categories you follow.
+- 🔵 **Discover** — Browse news by category.
+- 🔵 **Sources** — Source list with per-source news feeds.
+- 🔵 **Breaking** — Push notifications via Firebase Cloud Messaging; stories covered by 2+ sources at the same time (i.e. genuinely trending) are sent through the `breaking_alerts` topic.
+- 🔵 **Custom** — Visual preferences are stored on-device.
+- 🔵 **Privacy** — No personal data is collected or stored on the device — preferences are kept locally only.
 
 ## Screenshots
 
