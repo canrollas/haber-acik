@@ -1,7 +1,13 @@
 import { ArticlesResponse, ArticleResponse, SourcesResponse } from '../types/article';
 
-const BASE_URL = 'https://izeiidggctcpgnuxhafc.supabase.co/functions/v1/api';
-const API_KEY = 'REDACTED_SUPABASE_KEY';
+const BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL as string;
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY as string;
+
+if (!BASE_URL || !API_KEY) {
+  throw new Error(
+    'Missing EXPO_PUBLIC_API_BASE_URL / EXPO_PUBLIC_API_KEY — copy .env.example to .env and fill in your Supabase values.'
+  );
+}
 
 // Zayıf/yavaş mobil ağlarda (ör. düşük menzilli 3G) fetch bazen hiç cevap
 // vermeden askıda kalabiliyor — AbortController olmadan bu istek sonsuza kadar

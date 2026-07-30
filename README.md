@@ -76,8 +76,18 @@ plugins/         Local Expo config plugins applied during native prebuild
 
 ```bash
 npm install
+cp .env.example .env   # fill in your own Supabase project URL + publishable key
 npx expo start
 ```
+
+The app reads its backend config from environment variables (see `src/services/api.ts`) — `.env` is gitignored, so copy `.env.example` and fill in your own values:
+
+| Variable | Description |
+|---|---|
+| `EXPO_PUBLIC_API_BASE_URL` | Your Supabase Edge Function base URL. |
+| `EXPO_PUBLIC_API_KEY` | Your Supabase **publishable** key (`sb_publishable_...`) — this is the client-safe equivalent of the old anon key, meant to be used from the app and gated by Row Level Security. Never put a `sb_secret_...` service-role key here. |
+
+You'll also need your own `google-services.json` (from the Firebase console) at the project root for the Firebase Messaging native module to build.
 
 Because it uses native modules (Firebase, notifications, etc.), it doesn't fully work in Expo Go — a development build is required:
 
@@ -104,10 +114,20 @@ Signing relies on `release.jks` + `release.keystore.properties` files at the pro
 
 ### CI/CD
 
-`.github/workflows/android-release.yml`: on every push to `main` (or manual trigger), it prebuilds the native project, reconstructs `release.jks` and `google-services.json` from GitHub Secrets (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_ALIAS`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_PASSWORD`, `GOOGLE_SERVICES_JSON_BASE64`), builds the signed `.aab`, and uploads it to the Actions run's **Artifacts** section. There's no automatic submission to the Play Store — the `.aab` is downloaded and uploaded to Play Console manually.
+`.github/workflows/android-release.yml`: on every push to `main` (or manual trigger), it prebuilds the native project, reconstructs `release.jks` and `google-services.json` from GitHub Secrets and injects the `EXPO_PUBLIC_*` env vars, builds the signed `.aab`, and uploads it to the Actions run's **Artifacts** section. There's no automatic submission to the Play Store — the `.aab` is downloaded and uploaded to Play Console manually.
 
 > [!IMPORTANT]
-> `google-services.json` and `release.jks`/`release.keystore.properties` are gitignored and never committed — you need your own copies locally (from the Firebase console and your own release keystore) to build. CI reconstructs them from the secrets above.
+> `.env`, `google-services.json`, and `release.jks`/`release.keystore.properties` are gitignored and never committed — you need your own copies locally to build. CI reconstructs all of them from the repo's GitHub Secrets (**Settings → Secrets and variables → Actions**):
+>
+> | Secret | Value |
+> |---|---|
+> | `ANDROID_KEYSTORE_BASE64` | `base64 -i release.jks \| pbcopy` — your release keystore, base64-encoded |
+> | `ANDROID_KEYSTORE_ALIAS` | Key alias from `release.keystore.properties` |
+> | `ANDROID_KEYSTORE_PASSWORD` | Store password from `release.keystore.properties` |
+> | `ANDROID_KEY_PASSWORD` | Key password from `release.keystore.properties` |
+> | `GOOGLE_SERVICES_JSON_BASE64` | `base64 -i google-services.json \| pbcopy` — your Firebase config, base64-encoded |
+> | `EXPO_PUBLIC_API_BASE_URL` | Same value as in your local `.env` |
+> | `EXPO_PUBLIC_API_KEY` | Same value as in your local `.env` |
 
 ## Notifications
 
