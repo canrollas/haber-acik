@@ -48,6 +48,11 @@ jobs:
           MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.ANDROID_KEY_PASSWORD }}
           EOF
 
+      # google-services.json is gitignored, never committed (contains a
+      # Firebase API key) and is restored here from a base64-encoded secret.
+      - name: Restore google-services.json
+        run: echo "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" | base64 -d > google-services.json
+
       - name: Prebuild native Android project
         run: npx expo prebuild --platform android
 
