@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Switch, StyleSheet, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as WebBrowser from 'expo-web-browser';
 import { AppTheme } from '../theme/theme';
@@ -98,6 +98,7 @@ const ABOUT_BODY =
   'İyi okumalar!';
 
 const PRIVACY_POLICY_URL = 'https://canrollas.github.io/haberacik/privacy';
+const CONTACT_EMAIL = 'canrollas@gmail.com';
 
 export default function SettingsScreen() {
   const { theme, themeMode, setThemeMode } = useAppTheme();
@@ -164,6 +165,17 @@ export default function SettingsScreen() {
             title="Son Dakika Uyarıları"
             subtitle="Sadece acil ve önemli gelişmeler için."
             trailing={{ type: 'switch', value: breakingAlertsEnabled, onValueChange: setBreakingAlertsEnabled }}
+            last
+          />
+        </SettingsSection>
+
+        <SettingsSection label="İletişim">
+          <SettingsRow
+            icon="mail-outline"
+            title="Bize Ulaşın"
+            subtitle={CONTACT_EMAIL}
+            trailing={{ type: 'external' }}
+            onPress={() => Linking.openURL(`mailto:${CONTACT_EMAIL}`)}
             last
           />
         </SettingsSection>
