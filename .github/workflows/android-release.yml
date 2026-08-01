@@ -56,6 +56,19 @@ jobs:
       - name: Restore google-services.json
         run: echo "${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}" | base64 -d > google-services.json
 
+      # app.json has no android.versionCode, so `expo prebuild` always
+      # defaults it to 1 — every CI build ended up with the same versionCode,
+      # which Play Console rejects as already used. github.run_number always
+      # increases across runs of this workflow, so using it here guarantees
+      # each build's versionCode is higher than the last without manual
+      # bumping. (Re-running a failed run via "Re-run jobs" reuses the same
+      # run_number — push a new commit or use workflow_dispatch instead if
+      # that happens.)
+      - name: Set Android versionCode
+        run: |
+          jq --argjson code "${{ github.run_number }}" '.expo.android.versionCode = $code' app.json > app.json.tmp
+          mv app.json.tmp app.json
+
       - name: Prebuild native Android project
         run: npx expo prebuild --platform android
 
