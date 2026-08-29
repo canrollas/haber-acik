@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     env:
       EXPO_PUBLIC_API_BASE_URL: ${{ secrets.EXPO_PUBLIC_API_BASE_URL }}
       EXPO_PUBLIC_API_KEY: ${{ secrets.EXPO_PUBLIC_API_KEY }}
@@ -25,8 +25,14 @@ jobs:
       # Runner images ship several Xcode versions and flip the default without
       # warning. Pin it so a runner image update can't silently change the
       # toolchain that produces a shipping build.
+      #
+      # 26.6 specifically: expo-modules-core's ExpoModulesJSI build script
+      # resolves a SwiftPM package that requires Swift tools 6.2, so anything
+      # older fails the archive with "package 'apple' is using Swift tools
+      # version 6.2.0 but the installed version is 6.1.0". This also matches the
+      # Xcode the app is built with locally (26.6, build 17F113).
       - name: Select Xcode
-        run: sudo xcode-select -switch /Applications/Xcode_16.4.app
+        run: sudo xcode-select -switch /Applications/Xcode_26.6.app
 
       - name: Install dependencies
         run: npm ci
