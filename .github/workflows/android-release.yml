@@ -1,8 +1,9 @@
 name: Android Release Build
 
+# Manual only. Every run consumes a versionCode (github.run_number) and
+# produces an artifact meant for a deliberate Play Console upload, so building
+# on every push to main only generated noise and skipped numbers.
 on:
-  push:
-    branches: [main]
   workflow_dispatch: {}
 
 jobs:
