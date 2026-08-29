@@ -8,7 +8,8 @@
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.haber-acik"
+      "bundleIdentifier": "com.anonymous.haberacik",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "predictiveBackGestureEnabled": false,
@@ -35,13 +36,14 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/notification-icon.png"
+          "icon": "./assets/notification-icon.png",
+          "enableBackgroundRemoteNotifications": true
         }
       ],
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icon.png",
+          "image": "./assets/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#0037b0"

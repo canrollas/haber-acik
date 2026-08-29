@@ -70,9 +70,18 @@ export function usePushNotifications() {
 
     requestUserPermission();
 
-    // Foreground message handler: FCM does not auto-display "notification" payloads
-    // while the app is foregrounded, so we show it ourselves via a local notification.
+    // Foreground message handler: on Android, FCM does not auto-display
+    // "notification" payloads while the app is foregrounded, so we show it
+    // ourselves via a local notification.
+    //
+    // iOS is deliberately excluded: expo-notifications installs itself as the
+    // UNUserNotificationCenter delegate, so setNotificationHandler above already
+    // presents the incoming remote notification. Scheduling one here too would
+    // show the banner twice.
     const unsubscribeOnMessage = onMessage(getMessaging(), async remoteMessage => {
+      if (Platform.OS !== 'android') {
+        return;
+      }
       const { title, body } = remoteMessage.notification ?? {};
       if (!title && !body) {
         return;
@@ -83,7 +92,7 @@ export function usePushNotifications() {
           body: body ?? '',
           data: remoteMessage.data ?? {},
         },
-        trigger: Platform.OS === 'android' ? { channelId: BREAKING_NEWS_CHANNEL_ID } : null,
+        trigger: { channelId: BREAKING_NEWS_CHANNEL_ID },
       });
     });
 

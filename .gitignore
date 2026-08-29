@@ -18,6 +18,7 @@ expo-env.d.ts
 *.key
 *.mobileprovision
 release.keystore.properties
+apns.credentials.properties
 google-services.json
 GoogleService-Info.plist
 

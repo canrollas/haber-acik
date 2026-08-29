@@ -1,0 +1,18 @@
+<!-- Splash mark: the same glyph as icon.svg, but as a white shape on a
+     transparent background so it composites onto the splash backgroundColor
+     instead of drawing its own square. The keyhole is knocked out (not filled)
+     so the splash colour shows through. -->
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <mask id="mark">
+      <rect width="1024" height="1024" fill="#000000"/>
+      <g stroke="#ffffff" stroke-width="54" stroke-linecap="round" fill="none">
+        <path d="M400 486 V378 A112 112 0 0 1 624 378 V432"/>
+      </g>
+      <rect x="332" y="480" width="360" height="304" rx="58" fill="#ffffff"/>
+      <circle cx="512" cy="598" r="34" fill="#000000"/>
+      <rect x="496" y="618" width="32" height="86" rx="14" fill="#000000"/>
+    </mask>
+  </defs>
+  <rect width="1024" height="1024" fill="#ffffff" mask="url(#mark)"/>
+</svg>
