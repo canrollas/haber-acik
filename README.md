@@ -16,6 +16,8 @@
 
 ---
 
+> **⚠️ Deprecated — not used anymore.** This project is no longer maintained or deployed; the backing `news-crawler` service has been deactivated.
+
 Built with Expo (React Native); runs on iOS and Android. News is collected from ~50 sources by a separate service, [news-crawler](https://github.com/canrollas/news-crawler) (You need authorized access to run this service contact me), and written to a Supabase (Postgres) database — this app just reads and displays that data through an API.
 
 ## Table of contents
